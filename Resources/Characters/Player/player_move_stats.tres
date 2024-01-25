@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MoveStats" load_steps=2 format=3 uid="uid://dagtaectam4eg"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/Stats/move_stats.gd" id="1_sfcx1"]
+
+[resource]
+script = ExtResource("1_sfcx1")
+speed = 3.0
+jump_strength = 15.0

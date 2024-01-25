@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MoveStats" load_steps=2 format=3 uid="uid://ddgvyklqrwrq1"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/Stats/move_stats.gd" id="1_ukopd"]
+
+[resource]
+script = ExtResource("1_ukopd")
+speed = 15.0
+jump_strength = 0.0

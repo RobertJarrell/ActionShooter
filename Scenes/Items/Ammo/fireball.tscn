@@ -1,0 +1,44 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcx2dl1tf1hd7"]
+
+[ext_resource type="Script" path="res://Scripts/Components/hitbox_component.gd" id="1_0nad8"]
+[ext_resource type="Script" path="res://Scripts/Item/Ammo/fireball.gd" id="1_kru6n"]
+[ext_resource type="Resource" uid="uid://bnbce61p5vwoc" path="res://Resources/Items/Ammo/fireball.tres" id="2_ltfbq"]
+[ext_resource type="Resource" uid="uid://xhuwimexw3t6" path="res://Resources/Items/Ammo/fireball_damage_stats.tres" id="2_rqpnv"]
+[ext_resource type="Script" path="res://Scripts/Components/object_move_component.gd" id="3_cr2ka"]
+[ext_resource type="Resource" uid="uid://ddgvyklqrwrq1" path="res://Resources/Items/Ammo/fireball_move_stats.tres" id="4_ujxni"]
+[ext_resource type="Script" path="res://Scripts/Components/projectile_controller.gd" id="7_qhdj0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efy55"]
+albedo_color = Color(0.741176, 0.34902, 0.211765, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_fgl4n"]
+material = SubResource("StandardMaterial3D_efy55")
+radius = 0.125
+height = 0.25
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_aebwh"]
+radius = 0.125
+
+[node name="Fireball" type="Node3D" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("1_kru6n")
+sheet = ExtResource("2_ltfbq")
+hitbox = NodePath("HitboxComponent")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_fgl4n")
+
+[node name="HitboxComponent" type="Area3D" parent="."]
+script = ExtResource("1_0nad8")
+sheet = ExtResource("2_rqpnv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent"]
+shape = SubResource("SphereShape3D_aebwh")
+
+[node name="ObjectMoveComponent" type="Node" parent="." node_paths=PackedStringArray("controller", "model")]
+script = ExtResource("3_cr2ka")
+sheet = ExtResource("4_ujxni")
+controller = NodePath("../ProjectileController")
+model = NodePath("..")
+
+[node name="ProjectileController" type="Node" parent="."]
+script = ExtResource("7_qhdj0")

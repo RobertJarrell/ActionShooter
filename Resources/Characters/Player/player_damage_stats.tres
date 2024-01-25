@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="DamageStats" load_steps=2 format=3 uid="uid://bih5v72wx3vp8"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/Stats/damage_stats.gd" id="1_pvg4t"]
+
+[resource]
+script = ExtResource("1_pvg4t")
+damage = 5
+knockback_force = 3.0

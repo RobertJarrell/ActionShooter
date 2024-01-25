@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EnemySheet" load_steps=2 format=3 uid="uid://e30w4guxklhq"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/Characters/Enemy/enemy_sheet.gd" id="1_q54a1"]
+
+[resource]
+script = ExtResource("1_q54a1")
+value = 20
+speed = 5.0
+health = 20

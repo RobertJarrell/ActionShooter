@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GameData" load_steps=2 format=3 uid="uid://cy0eid0u1uysr"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/Game/game_data.gd" id="1_mwf7n"]
+
+[resource]
+script = ExtResource("1_mwf7n")
+player_attempts = 3
+target_tally = 0
+enemy_tally = 0
+death_tally = 0
+score = 0

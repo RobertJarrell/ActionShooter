@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="VitalStats" load_steps=2 format=3 uid="uid://1m83nm2r8p7y"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/Stats/vital_stats.gd" id="1_nsxeg"]
+
+[resource]
+script = ExtResource("1_nsxeg")
+health = 20
+stamina = 30
+mana = 0
+value = 20

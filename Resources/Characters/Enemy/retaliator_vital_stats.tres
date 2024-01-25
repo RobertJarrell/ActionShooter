@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="VitalStats" load_steps=2 format=3 uid="uid://e2wxw7w0r6ku"]
+
+[ext_resource type="Script" path="res://Scripts/Resources/Stats/vital_stats.gd" id="1_7d22b"]
+
+[resource]
+script = ExtResource("1_7d22b")
+health = 20
+stamina = 20
+mana = 20
+value = 10
