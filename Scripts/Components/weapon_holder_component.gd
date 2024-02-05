@@ -10,6 +10,7 @@ extends Node3D
 
 var weapon_active : bool = false
 
+signal weapon_equipped(weapon : Weapon)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -17,7 +18,7 @@ func _ready():
 	
 	if weapon:
 		weapon.equipped = true
-		weapon.global_position = grip_point.global_position
+		weapon.global_transform = grip_point.global_transform
 		weapon_active = true
 	
 
@@ -28,27 +29,27 @@ func Fire():
 	
 	if weapon:
 		if weapon_active:
-			weapon.pull_trigger(weapon.muzzle)
-			print("Shooting")
+			weapon.pull_trigger()
+		
 	
 
 func equip(new_weapon : Weapon):
 	weapon = new_weapon
 	new_weapon.equipped = true
-	weapon.global_position = grip_point.global_position
+	weapon.global_transform = grip_point.global_transform
 	
 
 func drop():
 	pass
 
 func holster_weapon():
-	if weapon.global_position == grip_point.global_position:
+	if weapon.global_transform == grip_point.global_transform:
 		
-		weapon.global_position = holster_point.global_position
+		weapon.global_transform = holster_point.global_transform
 		weapon_active = false
 	
 	else:
 		
-		weapon.global_position = grip_point.global_position
+		weapon.global_transform = grip_point.global_transform
 		weapon_active = true
 	

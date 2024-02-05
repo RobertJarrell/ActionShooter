@@ -1,9 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://yuwaag04g2rk"]
+[gd_scene load_steps=32 format=3 uid="uid://yuwaag04g2rk"]
 
 [ext_resource type="Script" path="res://Scripts/Character/Player/player_token.gd" id="1_qb8vg"]
 [ext_resource type="Script" path="res://Scripts/Components/character_move_component.gd" id="1_wn1rp"]
 [ext_resource type="Resource" uid="uid://dagtaectam4eg" path="res://Resources/Characters/Player/player_move_stats.tres" id="2_wlba3"]
 [ext_resource type="Script" path="res://Scripts/Components/manual_controller.gd" id="3_jf6ss"]
+[ext_resource type="Script" path="res://Scripts/Components/state_component.gd" id="3_l1o11"]
 [ext_resource type="Script" path="res://Scripts/Components/vitals_component.gd" id="4_h0nkj"]
 [ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="5_axmk7"]
 [ext_resource type="Script" path="res://Scripts/Components/jump_component.gd" id="5_m40v5"]
@@ -12,7 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/Components/stamina_component.gd" id="8_5ewkp"]
 [ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="9_ddqyb"]
 [ext_resource type="Script" path="res://Scripts/Components/weapon_holder_component.gd" id="12_y1w8h"]
-[ext_resource type="PackedScene" uid="uid://c7rdoqngphclf" path="res://Scenes/Items/Weapon/magic_staff.tscn" id="13_nfy85"]
+[ext_resource type="PackedScene" uid="uid://c00u3ms5qay26" path="res://Scenes/Characters/Player/player_hud.tscn" id="14_i6hp6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1wq23"]
 radius = 0.172286
@@ -95,20 +96,25 @@ shape = SubResource("CapsuleShape3D_1wq23")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02417, 0)
 shape = SubResource("CapsuleShape3D_d7mft")
 
+[node name="StateComponent" type="Node" parent="."]
+script = ExtResource("3_l1o11")
+
 [node name="Controller" type="Node" parent="." node_paths=PackedStringArray("model")]
 script = ExtResource("3_jf6ss")
 model = NodePath("..")
 
-[node name="CharacterMoveComponent" type="Node" parent="." node_paths=PackedStringArray("model", "controller")]
+[node name="CharacterMoveComponent" type="Node" parent="." node_paths=PackedStringArray("model", "controller", "state")]
 script = ExtResource("1_wn1rp")
 sheet = ExtResource("2_wlba3")
 model = NodePath("..")
 controller = NodePath("../Controller")
+state = NodePath("../StateComponent")
 
-[node name="JumpComponent" type="Node" parent="." node_paths=PackedStringArray("controller", "model")]
+[node name="JumpComponent" type="Node" parent="." node_paths=PackedStringArray("controller", "state", "model")]
 script = ExtResource("5_m40v5")
 sheet = ExtResource("2_wlba3")
 controller = NodePath("../Controller")
+state = NodePath("../StateComponent")
 model = NodePath("..")
 
 [node name="VitalsComponent" type="Node" parent="." node_paths=PackedStringArray("hurtbox")]
@@ -133,15 +139,15 @@ sheet = ExtResource("6_wchwb")
 model = NodePath("..")
 vitals = NodePath("../VitalsComponent")
 
-[node name="WeaponHolderComponent" type="Node3D" parent="." node_paths=PackedStringArray("controller", "weapon", "grip_point", "holster_point")]
+[node name="WeaponHolderComponent" type="Node3D" parent="." node_paths=PackedStringArray("controller", "grip_point", "holster_point")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.19209e-07, 9.31323e-10)
 script = ExtResource("12_y1w8h")
 controller = NodePath("../Controller")
-weapon = NodePath("../Visuals/Body/Torso/WeaponArm/StaffGripPoint/MagicStaff")
 grip_point = NodePath("../Visuals/Body/Torso/WeaponArm/StaffGripPoint")
-holster_point = NodePath("../Visuals/Body/Torso/Chest/Holster")
+holster_point = NodePath("../Visuals/Body/Torso/Holster")
 
 [node name="HurtboxComponent" type="Area3D" parent="."]
+collision_layer = 2
 script = ExtResource("9_ddqyb")
 
 [node name="Lower" type="CollisionShape3D" parent="HurtboxComponent"]
@@ -180,9 +186,6 @@ mesh = SubResource("CylinderMesh_pipmk")
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 1.11969, 0)
 mesh = SubResource("CapsuleMesh_2r01n")
 
-[node name="Holster" type="Marker3D" parent="Visuals/Body/Torso/Chest"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0460099, -0.130816, 0.151648)
-
 [node name="Abdomin" type="MeshInstance3D" parent="Visuals/Body/Torso"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.920441, 0)
 mesh = SubResource("CapsuleMesh_gdnax")
@@ -196,7 +199,7 @@ transform = Transform3D(0.990329, 0.138741, 0, -0.138741, 0.990329, 0, 0, 0, 1, 
 mesh = SubResource("CapsuleMesh_tb0ru")
 
 [node name="WeaponArm" type="Node3D" parent="Visuals/Body/Torso"]
-transform = Transform3D(1, 0, 0, 0, -0.0304861, -0.999535, 0, 0.999535, -0.0304861, 0.261, 1.2, 0.005)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.261, 1.2, 0.005)
 
 [node name="RightArm" type="MeshInstance3D" parent="Visuals/Body/Torso/WeaponArm"]
 transform = Transform3D(0.993171, -0.116671, 0, 0.116671, 0.993171, 0, 0, 0, 1, -0.0352587, -0.249542, 0.013052)
@@ -206,7 +209,8 @@ skeleton = NodePath("../..")
 [node name="StaffGripPoint" type="Marker3D" parent="Visuals/Body/Torso/WeaponArm"]
 transform = Transform3D(1, 0, 0, 0, -0.0304861, 0.999535, 0, -0.999535, -0.0304861, -0.00945902, -0.46, 0.00701702)
 
-[node name="MagicStaff" parent="Visuals/Body/Torso/WeaponArm/StaffGripPoint" instance=ExtResource("13_nfy85")]
+[node name="Holster" type="Marker3D" parent="Visuals/Body/Torso"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.130816, 1.1657, 0.151648)
 
 [node name="LowerBody" type="Node3D" parent="Visuals/Body"]
 
@@ -233,3 +237,6 @@ mesh = SubResource("CapsuleMesh_6vrsu")
 [node name="Camera3D" type="Camera3D" parent="CameraController"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0.379722, 1.56329, 1.0789)
 current = true
+
+[node name="PlayerHud" parent="." node_paths=PackedStringArray("weapon_holder") instance=ExtResource("14_i6hp6")]
+weapon_holder = NodePath("../WeaponHolderComponent")

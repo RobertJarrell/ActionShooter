@@ -28,6 +28,7 @@ hitbox = NodePath("HitboxComponent")
 mesh = SubResource("SphereMesh_fgl4n")
 
 [node name="HitboxComponent" type="Area3D" parent="."]
+collision_mask = 5
 script = ExtResource("1_0nad8")
 sheet = ExtResource("2_rqpnv")
 

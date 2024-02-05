@@ -85,6 +85,15 @@ shape = SubResource("BoxShape3D_fscwa")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map/HighWall"]
 mesh = SubResource("BoxMesh_banbd")
 
+[node name="HighWall2" type="StaticBody3D" parent="Map"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 4.5, -17)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Map/HighWall2"]
+shape = SubResource("BoxShape3D_fscwa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Map/HighWall2"]
+mesh = SubResource("BoxMesh_banbd")
+
 [node name="LowWall" type="StaticBody3D" parent="Map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 1.5, 0)
 
@@ -110,6 +119,4 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 7, 10)
 fov = 90.0
 
 [node name="PlayerToken" parent="." instance=ExtResource("1_6ndix")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 7)
-
-[editable path="PlayerToken"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)

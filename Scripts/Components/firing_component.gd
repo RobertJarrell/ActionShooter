@@ -3,17 +3,13 @@ class_name  FiringComponent
 extends Node
 
 @export var bullet_spawn : SpawnerComponent
+@onready var spawner_component = $"../SpawnerComponent"
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	bullet_spawn = spawner_component
+	
 
 func fire(muzzle : Node3D):
-	print("firing")
-	bullet_spawn.spawn(muzzle.global_position)
+	
+	bullet_spawn.spawn(muzzle.global_transform)
 	

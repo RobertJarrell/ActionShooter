@@ -22,14 +22,11 @@ height = 1.25
 radius = 0.1
 height = 0.2
 
-[node name="MagicStaff" type="RigidBody3D" node_paths=PackedStringArray("trigger", "muzzle", "grip", "holster")]
+[node name="MagicStaff" type="RigidBody3D"]
+collision_layer = 8
 freeze_mode = 1
 script = ExtResource("1_074ia")
-trigger = NodePath("FiringComponent")
 sheet = ExtResource("2_hm4uo")
-muzzle = NodePath("Visuals/Shaft/Head/SpawnPoint")
-grip = NodePath("GripPoint")
-holster = NodePath("HolsterPoint")
 
 [node name="Shaft" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.375, 0)
@@ -61,6 +58,5 @@ skeleton = NodePath("../../..")
 
 [node name="HolsterPoint" type="Marker3D" parent="."]
 
-[node name="FiringComponent" type="Node" parent="." node_paths=PackedStringArray("bullet_spawn")]
+[node name="FiringComponent" type="Node" parent="."]
 script = ExtResource("4_mhwns")
-bullet_spawn = NodePath("../SpawnerComponent")

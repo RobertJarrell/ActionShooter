@@ -25,7 +25,7 @@ func _check_status():
 		freeze = false
 	
 
-func pull_trigger(muzzle):
+func pull_trigger():
 	pass
 
 func recharge(mana_value):

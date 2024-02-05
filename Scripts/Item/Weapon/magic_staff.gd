@@ -1,6 +1,9 @@
 class_name MagicStaff
 
 extends Weapon
+@onready var firing_component = $FiringComponent
+@onready var spawn_point = $Visuals/Shaft/Head/SpawnPoint
+@onready var spawner_component = $SpawnerComponent
 
 
 # Called when the node enters the scene tree for the first time.
@@ -10,6 +13,8 @@ func _ready():
 	rate_of_fire = sheet.rate_of_fire
 	current_ammo = max_current_ammo
 	ammo_pool = max_ammo_pool
+	trigger = firing_component
+	muzzle = spawn_point
 	
 
 
@@ -22,7 +27,7 @@ func _process(delta):
 		recoil_time -= delta
 	
 
-func pull_trigger(muzzle):
+func pull_trigger():
 	
 	# checks recoil time to see if rate of fire has been resolved
 	if recoil_time <= 0:

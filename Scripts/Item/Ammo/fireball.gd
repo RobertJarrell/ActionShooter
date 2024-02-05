@@ -5,7 +5,8 @@ extends ProjectileComponent
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	range = sheet.range
+	
+	distance = sheet.distance
 	
 	hitbox.hit_hurtbox.connect(_resolve_collision)
 	
@@ -22,8 +23,8 @@ func _resolve_collision():
 
 func _handle_existance(delta):
 	
-	range -= delta
+	distance -= delta
 	
-	if range <= 0:
+	if distance <= 0:
 		queue_free()
 		

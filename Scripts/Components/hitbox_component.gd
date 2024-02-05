@@ -5,7 +5,7 @@ extends Area3D
 @export var sheet : DamageStats
 
 var value : int
-var force : int
+var force : float
 
 signal hit_hurtbox(hurtbox)
 

@@ -5,7 +5,7 @@ extends Node3D
 @export var sheet : AmmoData
 @export var hitbox : HitboxComponent
 
-var range : float
+var distance : float
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
