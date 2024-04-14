@@ -2,6 +2,8 @@ class_name JumpComponent
 
 extends Node
 
+const hangtimeRESET : float = 0.6
+
 @export var sheet : MoveStats
 @export var controller : ControllerComponent
 @export var state : StateComponent
@@ -15,6 +17,8 @@ var bounce_direction = Vector3.ZERO
 var has_jumped : bool = false
 var has_double_jumped : bool = false
 var gravity_multiplier : float = 3
+var hangtime : float = 0
+var jump_lerp : float = .5
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -22,14 +26,17 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready():
 	
 	jump_force = sheet.jump_strength
-	fall_off = jump_force + 1
+	fall_off = jump_force - 1
 	
 	controller.jump.connect(_handle_jump)
 	controller.apply_gravity.connect(_handle_gravity)
 	
 func _physics_process(delta):
 	
-	if state.bounce_time > 0:
+	if hangtime > 0:
+		hangtime += -delta
+	
+	if state.bounce_time > 0.0:
 		state.bounce_time += -delta
 		
 	if state.grounded and state.bounce_time > 0:
@@ -38,14 +45,14 @@ func _physics_process(delta):
 
 
 func jump(direction : Vector3):
-	var jump_velocity = direction * jump_force * 0.25 + Vector3.UP * jump_force
+	var jump_velocity = direction * jump_force + Vector3.UP * jump_force
 	model.velocity = jump_velocity
-	
+	hangtime = hangtimeRESET
 
 func wall_jump(wall_normal : Vector3):
 	
-	var push_force = jump_force * 0.5
-	model.velocity = Vector3(wall_normal.x * push_force, jump_force, wall_normal.z * push_force)
+	var push_force = jump_force * 2.0
+	model.velocity = Vector3(wall_normal.x * push_force, push_force, wall_normal.z * push_force)
 	
 
 func _handle_jump(direction : Vector3):
@@ -67,6 +74,7 @@ func _handle_jump(direction : Vector3):
 
 func _handle_gravity(delta):
 	
-	if model.velocity.y > 0 and Input.is_action_pressed("Jump") || model.velocity.y < fall_off:
+	if model.velocity.y < fall_off || model.velocity.y > 0 and not Input.is_action_pressed("Jump") || hangtime <= 0.0:
 		model.velocity.y -= gravity_multiplier * gravity * delta
+		hangtime = 0.0
 

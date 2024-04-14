@@ -21,7 +21,7 @@ func _ready():
 func _on_hurtbox_enterd(hurtbox : HurtboxComponent):
 	if not hurtbox is HurtboxComponent: return
 	
-	hit_hurtbox.emit(hurtbox)
-	
 	hurtbox.hit.emit(self)
+	
+	hit_hurtbox.emit(hurtbox)
 	

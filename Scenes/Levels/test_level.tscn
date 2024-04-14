@@ -1,6 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://b0cnbntxejvh6"]
+[gd_scene load_steps=26 format=3 uid="uid://b0cnbntxejvh6"]
 
 [ext_resource type="PackedScene" uid="uid://yuwaag04g2rk" path="res://Scenes/Characters/Player/player_token.tscn" id="1_6ndix"]
+[ext_resource type="Texture2D" uid="uid://b3qd6o7hc7mnq" path="res://Assets/Visuals/PNG/Green/texture_03.png" id="1_g3k1g"]
+[ext_resource type="Texture2D" uid="uid://cq8eosurg6854" path="res://Assets/Visuals/PNG/Dark/texture_04.png" id="2_0p0bf"]
+[ext_resource type="Texture2D" uid="uid://csb4y3eju8rpi" path="res://Assets/Visuals/PNG/Orange/texture_01.png" id="3_pq501"]
+[ext_resource type="Texture2D" uid="uid://cx3nbnko7d1td" path="res://Assets/Visuals/PNG/Purple/texture_10.png" id="4_2nhx1"]
+[ext_resource type="Texture2D" uid="uid://dw8nbk5vi0bjp" path="res://Assets/Visuals/PNG/Red/texture_13.png" id="5_6huql"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4bugk"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -18,28 +23,47 @@ glow_enabled = true
 [sub_resource type="BoxShape3D" id="BoxShape3D_s7dq0"]
 size = Vector3(50, 1, 50)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b36m0"]
+albedo_texture = ExtResource("1_g3k1g")
+
 [sub_resource type="BoxMesh" id="BoxMesh_w3nuy"]
+material = SubResource("StandardMaterial3D_b36m0")
 size = Vector3(50, 1, 50)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_62mh3"]
 size = Vector3(10, 1, 10)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f10fc"]
+albedo_texture = ExtResource("2_0p0bf")
+
 [sub_resource type="BoxMesh" id="BoxMesh_htgj8"]
+material = SubResource("StandardMaterial3D_f10fc")
 size = Vector3(10, 1, 10)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fscwa"]
 size = Vector3(5, 10, 5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_exi6o"]
+albedo_texture = ExtResource("3_pq501")
+
 [sub_resource type="BoxMesh" id="BoxMesh_banbd"]
+material = SubResource("StandardMaterial3D_exi6o")
 size = Vector3(5, 10, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4u2m4"]
 size = Vector3(5, 3, 5)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_60bxt"]
+albedo_texture = ExtResource("4_2nhx1")
+
 [sub_resource type="BoxMesh" id="BoxMesh_gidec"]
+material = SubResource("StandardMaterial3D_60bxt")
 size = Vector3(5, 3, 5)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_4c64a"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p5v0i"]
+albedo_texture = ExtResource("5_6huql")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_myugb"]
 albedo_color = Color(0.443137, 0.25098, 0.129412, 1)
@@ -110,6 +134,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, 7)
 shape = SubResource("CylinderShape3D_4c64a")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Map/Obstacle"]
+material_override = SubResource("StandardMaterial3D_p5v0i")
 mesh = SubResource("CylinderMesh_r5jh7")
 
 [node name="CameraPoint" type="Node3D" parent="."]

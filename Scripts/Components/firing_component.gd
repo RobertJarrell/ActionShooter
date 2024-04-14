@@ -2,14 +2,14 @@ class_name  FiringComponent
 
 extends Node
 
-@export var bullet_spawn : SpawnerComponent
+var bullet_spawn : SpawnerComponent
 @onready var spawner_component = $"../SpawnerComponent"
 
 func _ready():
 	bullet_spawn = spawner_component
 	
 
-func fire(muzzle : Node3D):
+func fire(shot_origin : Node3D):
 	
-	bullet_spawn.spawn(muzzle.global_transform)
+	bullet_spawn.spawn(shot_origin.global_transform)
 	

@@ -42,7 +42,7 @@ func _handle_jump(direction, delta):
 
 func _handle_quick_action(direction, delta):
 	
-	if Input.is_action_just_pressed("Action"):
+	if Input.is_action_pressed("Action"):
 		sprint.emit(direction, delta)
 	
 

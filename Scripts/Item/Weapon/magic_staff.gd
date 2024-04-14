@@ -1,9 +1,10 @@
 class_name MagicStaff
 
 extends Weapon
+
 @onready var firing_component = $FiringComponent
 @onready var spawn_point = $Visuals/Shaft/Head/SpawnPoint
-@onready var spawner_component = $SpawnerComponent
+
 
 
 # Called when the node enters the scene tree for the first time.

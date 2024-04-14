@@ -2,12 +2,10 @@ class_name Weapon
 
 extends RigidBody3D
 
-@export var trigger : FiringComponent
 @export var sheet : WeaponData
-@export var muzzle : Marker3D
-@export var grip : Marker3D
-@export var holster : Marker3D
 
+var trigger : FiringComponent
+var muzzle : Marker3D
 var current_ammo : int
 var max_current_ammo : int
 var rate_of_fire : float

@@ -32,6 +32,6 @@ func move(direction : Vector3, delta : float):
 		model.velocity.z = lerp(model.velocity.z, direction.z * speed, acceleration * delta)
 	
 	else:
-		model.velocity.x = move_toward(model.velocity.x, 0 , friction)
-		model.velocity.z = move_toward(model.velocity.z, 0, friction)
+		model.velocity.x = move_toward(model.velocity.x, 0 , speed * friction)
+		model.velocity.z = move_toward(model.velocity.z, 0, speed * friction)
 		

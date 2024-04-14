@@ -1,0 +1,77 @@
+[gd_scene load_steps=13 format=3 uid="uid://e32dvl4mbvml"]
+
+[ext_resource type="Script" path="res://Scripts/Components/hurtbox_component.gd" id="1_wfkq8"]
+[ext_resource type="Script" path="res://Scripts/Components/detection_component.gd" id="2_db18r"]
+[ext_resource type="Script" path="res://Scripts/Components/vitals_component.gd" id="2_xad1y"]
+[ext_resource type="Script" path="res://Scripts/Components/health_component.gd" id="3_cpec6"]
+[ext_resource type="Resource" uid="uid://1m83nm2r8p7y" path="res://Resources/Characters/Enemy/runner_vital_stats.tres" id="4_1d66g"]
+[ext_resource type="Script" path="res://Scripts/Components/stamina_component.gd" id="5_l1b85"]
+[ext_resource type="Script" path="res://Scripts/Components/mana_component.gd" id="6_vsw67"]
+[ext_resource type="Script" path="res://Scripts/Components/detection_sort_component.gd" id="8_c7xgy"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hxv16"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h71c8"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2sbet"]
+radius = 0.75
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_uy78s"]
+height = 3.0
+radius = 20.0
+
+[node name="Runner" type="CharacterBody3D"]
+collision_layer = 4
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Visuals"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_hxv16")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00178, 0)
+shape = SubResource("CapsuleShape3D_h71c8")
+
+[node name="HurtboxComponent" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 11
+script = ExtResource("1_wfkq8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.02606, 0)
+shape = SubResource("CylinderShape3D_2sbet")
+
+[node name="VitalsComponent" type="Node" parent="." node_paths=PackedStringArray("hurtbox")]
+script = ExtResource("2_xad1y")
+hurtbox = NodePath("../HurtboxComponent")
+
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("model", "vitals")]
+script = ExtResource("3_cpec6")
+sheet = ExtResource("4_1d66g")
+model = NodePath("..")
+vitals = NodePath("../VitalsComponent")
+
+[node name="StaminaComponent" type="Node" parent="." node_paths=PackedStringArray("model", "vitals")]
+script = ExtResource("5_l1b85")
+sheet = ExtResource("4_1d66g")
+model = NodePath("..")
+vitals = NodePath("../VitalsComponent")
+
+[node name="ManaComponent" type="Node" parent="." node_paths=PackedStringArray("model", "vitals")]
+script = ExtResource("6_vsw67")
+sheet = ExtResource("4_1d66g")
+model = NodePath("..")
+vitals = NodePath("../VitalsComponent")
+
+[node name="WorldDetection" type="Node3D" parent="."]
+
+[node name="DetectionComponent" type="Area3D" parent="WorldDetection"]
+script = ExtResource("2_db18r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldDetection/DetectionComponent"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.882399, 0)
+shape = SubResource("CylinderShape3D_uy78s")
+
+[node name="DetectionSortComponent" type="Node" parent="."]
+script = ExtResource("8_c7xgy")
